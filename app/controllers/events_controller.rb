@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[ show update destroy ]
+ skip_before_action :authorized, only: [:index, :show]
+
+
 
   # GET /events
   def index
@@ -10,7 +12,12 @@ class EventsController < ApplicationController
 
   # GET /events/1
   def show
-    render json: @event
+    event = Event.find(params[:id])
+    if event
+    render json: event
+    else
+      render json: {error: "No such event"}, status: :not_found
+    end
   end
 
   # POST /events
@@ -46,6 +53,6 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:event_name, :event_date, :event_location, :event_description, :poster_url, :event_price, :total_tickets, :start_time, :end_time, :contact, :age_restriction, :ticket_info, :lineup, :category)
+      params.permit(:event_name, :event_date, :event_location, :event_description, :poster_url, :event_price, :total_tickets, :start_time, :end_time, :contact, :age_restriction, :ticket_info, :lineup, :category)
     end
 end
