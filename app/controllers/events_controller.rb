@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[ index, show ]
+
+ skip_before_action :authorized, only: [:index]
+
 
   # GET /events
   def index
