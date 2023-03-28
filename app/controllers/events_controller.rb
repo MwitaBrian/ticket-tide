@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
- skip_before_action :authorized, only: [:index]
+ skip_before_action :authorized, only: [:index, :show]
 
   # GET /events
   def index
@@ -10,7 +10,12 @@ class EventsController < ApplicationController
 
   # GET /events/1
   def show
-    render json: @event
+    event = Event.find(params[:id])
+    if event
+    render json: event
+    else
+      render json: {error: "No such event"}, status: :not_found
+    end
   end
 
   # POST /events
