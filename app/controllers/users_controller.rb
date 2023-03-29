@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
-    skip_before_action :authorized, only: [:create]
+    skip_before_action :authorized, only: [:create, :index,:show,:destroy]
 
   # GET /users
-  # def index
-  #   @users = User.all
-  #   render json: @users
-  # end
+  def index
+    @users = User.all
+    render json: @users
+  end
 
-  # GET /users/1
+  # GET /users/:id
   def show
     @user = User.find(params[:id])
     if @user
@@ -17,15 +17,15 @@ class UsersController < ApplicationController
     end
   end
 
-  # POST /users
-   def create
-    user = User.create(user_params)
-    if user.valid?
-      render json: { user: user }, status: :created
-    else
-      render json: { error: user.errors.full_messages.join(', ') }, status: :unprocessable_entity
+ #  POST /user
+    def create
+        user = User.create(user_params)
+        if user.valid?
+            render json: { "success": "User saved successfully!"}, status: :created
+        else
+            render json: {"errors": ["Validation errors"]}, status: :unprocessable_entity
+        end
     end
-  end
 
   # PATCH/PUT /users/1
   def update
@@ -36,9 +36,11 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
+  # DELETE /users/:id
   def destroy
-    @user.destroy
+    user = User.find(params[:id])
+    user.destroy
+    head :no_content
   end
 
   private
@@ -49,6 +51,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.permit(:first_name, :last_name, :phone, :email, :password)
+      params.permit(:first_name, :last_name, :phone, :email, :password, :level)
     end
 end
