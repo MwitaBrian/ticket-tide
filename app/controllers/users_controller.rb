@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   # POST /users
    def create
     user = User.create(user_params)
@@ -27,6 +28,8 @@ class UsersController < ApplicationController
     else
       render json: { error: user.errors.full_messages.join(', ') }, status: :unprocessable_entity
 =======
+=======
+>>>>>>> 6f34c4f66bac2975508adc1cfb908e3df1a5f814
  #  POST /user
     def create
         user = User.create(user_params)
@@ -35,7 +38,11 @@ class UsersController < ApplicationController
         else
             render json: {"errors": ["Validation errors"]}, status: :unprocessable_entity
         end
+<<<<<<< HEAD
 >>>>>>> 2373101bbad9c0a36ea663304f0052de428ba56b
+=======
+
+>>>>>>> 6f34c4f66bac2975508adc1cfb908e3df1a5f814
     end
 
   # PATCH/PUT /users/1
