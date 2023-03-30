@@ -1,4 +1,3 @@
-# Event 1
 Event.create!(
   event_name: "Spring Fling",
   event_date: Date.new(2023, 4, 15),

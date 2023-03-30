@@ -25,6 +25,7 @@ class UsersController < ApplicationController
         else
             render json: {"errors": ["Validation errors"]}, status: :unprocessable_entity
         end
+
     end
 
   # PATCH/PUT /users/1
