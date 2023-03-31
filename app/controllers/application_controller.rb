@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   before_action :authorized
+  
 
   def encode_token(payload)
     # should store secret in env variable
@@ -10,6 +11,7 @@ class ApplicationController < ActionController::API
     # { Authorization: 'Bearer <token>' }
     request.headers['Authorization']
   end
+ 
 
   def decoded_token
     if auth_header
