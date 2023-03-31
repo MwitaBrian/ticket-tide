@@ -1,12 +1,11 @@
 class EventsController < ApplicationController
- skip_before_action :authorized, only: [:index, :show]
+ skip_before_action :authorized, only: [:index, :show,:create, :destroy,:update]
 
 
 
   # GET /events
   def index
     @events = Event.all
-
     render json: @events
   end
 
@@ -31,18 +30,24 @@ class EventsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /events/1
-  def update
-    if @event.update(event_params)
-      render json: @event
-    else
-      render json: @event.errors, status: :unprocessable_entity
-    end
+ def update
+  event = Event.find(params[:id])
+  if event.update(event_params)
+    render json: { status: 'success', message: 'Event updated successfully' }
+  else
+    render json: { status: 'error', message: event.errors.full_messages.join(', ') }
   end
+end
+
 
   # DELETE /events/1
   def destroy
-    @event.destroy
+    event = Event.find(params[:id])
+    if event.destroy
+      head :no_content
+    else
+      render json: { error: 'Unable to delete event' }, status: :unprocessable_entity
+    end
   end
 
   private

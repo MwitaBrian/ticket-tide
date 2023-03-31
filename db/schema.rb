@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<<<< Temporary merge branch 1
-ActiveRecord::Schema[7.0].define(version: 2023_03_29_140659) do
-=========
-ActiveRecord::Schema[7.0].define(version: 2023_03_29_115931) do
->>>>>>>>> Temporary merge branch 2
+ActiveRecord::Schema[7.0].define(version: 2023_03_31_060724) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.integer "total"
+    t.integer "tickets"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_bookings_on_event_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
 
   create_table "events", force: :cascade do |t|
     t.string "event_name"
@@ -56,8 +64,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_115931) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "level"
+    t.string "image"
   end
+
+  add_foreign_key "bookings", "events"
+  add_foreign_key "bookings", "users"
 
   add_foreign_key "likes", "events"
   add_foreign_key "likes", "users"
+
 end
