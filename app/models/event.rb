@@ -1,3 +1,3 @@
 class Event < ApplicationRecord
-    has_many :likes
+    has_many :bookings
 end

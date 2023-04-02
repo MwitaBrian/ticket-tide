@@ -1,7 +1,14 @@
 class EventsController < ApplicationController
- skip_before_action :authorized, only: [:index, :show,:create, :destroy,:update]
+ skip_before_action :authorized, only: [:index, :show,:create, :destroy,:update, :like_event]
 
-
+def like_event
+  event = Event.find(params[:id])
+  if event.update(likes: event.likes + 1)
+    render json: { success: true }
+  else
+    render json: { success: false }
+  end
+end
 
   # GET /events
   def index
