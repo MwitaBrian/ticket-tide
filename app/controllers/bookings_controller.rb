@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  skip_before_action :authorized, only: [:create, :index]
+  skip_before_action :authorized, only: [:create, :index, :user_bookings]
 
   def index
     render json: Booking.all
@@ -7,9 +7,21 @@ class BookingsController < ApplicationController
 def create
   booking = Booking.create(booking_params)
   if booking.valid?
-    render json: booking, status: :created
+    render json: { booking: booking, status: :created }
   else
-render json: {error:"Booking not made"}, status: :unprocessable_entity
+    render json: { error: booking.errors.full_messages.to_sentence }, status: :unprocessable_entity
+  end
+end
+
+
+
+ def user_bookings
+  user = User.find(params[:id])
+  if user
+    bookings = user.bookings
+    render json: bookings
+  else
+    render json: { error: 'User not found' }, status: :not_found
   end
 end
 
