@@ -24,7 +24,7 @@ end
     def create
         user = User.create(user_params)
         if user.valid?
-            render json: { "success": "User saved successfully!"}, status: :created
+            render json: {status: :created, "success": "User saved successfully!"}
         else
             render json: {"errors": ["Validation errors"]}, status: :unprocessable_entity
         end
@@ -36,7 +36,7 @@ def update
   user = User.find(params[:id])
   if user
     user.update(user_params)
-    render json: user, status: :accepted
+    render json: {status: :accepted, user: user}
   else
     render json: {error:"Unable to update user"}, status: :unprocessable_entity
   end

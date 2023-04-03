@@ -12,7 +12,7 @@ Event.create!(
   age_restriction: nil,
   ticket_info: "Tickets can be purchased online or at the gate.",
   lineup: "Local bands and musicians.",
-  category: "music"
+  category: "Music"
 )
 
 # Event 2
@@ -30,7 +30,7 @@ Event.create!(
   age_restriction: 21,
   ticket_info: "Tickets must be purchased in advance.",
   lineup: "Local jazz bands and solo musicians.",
-  category: "music"
+  category: "Music"
 )
 
 # Event 3
@@ -48,7 +48,7 @@ Event.create!(
   age_restriction: nil,
   ticket_info: "Tickets are available online or at the box office.",
   lineup: "Top international artists and local bands.",
-  category: "community"
+  category: "Community"
 )
 
 # # Event 4
@@ -66,5 +66,5 @@ Event.create!(
   age_restriction: nil,
   ticket_info: "Tickets are available online or at the box office.",
   lineup: "Top international artists and local bands.",
-  category: "community"
+  category: "Community"
 )
